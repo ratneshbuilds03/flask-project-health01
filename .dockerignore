@@ -6,3 +6,4 @@ env.
 .pytest.cache/
 teste/
 README.MD
+.env.docker
