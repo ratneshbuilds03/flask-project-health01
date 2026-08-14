@@ -161,6 +161,21 @@ This creates an optimized build in `frontend/dist/`
 
 You can deploy the `frontend/dist/` folder to any static hosting (Netlify, Vercel, AWS S3, etc.)
 
+## Production Deployment on Render.com
+
+### ⚠️ Important: Database Issue
+
+Render doesn't have local MySQL. You need an **external database** (Railway, AWS RDS, etc.)
+
+**Quick Fix:**
+
+1. Create MySQL on [Railway.app](https://railway.app) (Free)
+2. Get `DATABASE_URL`
+3. Add to Render environment variables
+4. Redeploy
+
+**👉 See [RENDER_DEPLOYMENT.md](RENDER_DEPLOYMENT.md) for complete guide**
+
 ## Project Structure
 
 ```
