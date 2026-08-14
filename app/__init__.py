@@ -18,13 +18,16 @@ def _create_tables_with_retry(max_retries=30, delay=2):
     for attempt in range(1, max_retries + 1):
         try:
             db.create_all()
+            print("✅ Database tables created successfully")
             return
         except OperationalError as exc:
             message = str(exc).lower()
             if "can't connect to mysql server" not in message and "connection refused" not in message:
                 raise
             if attempt == max_retries:
-                raise
+                print("⚠️  Could not connect to database. Make sure DATABASE_URL is set in environment variables.")
+                print("   For Render: Add DATABASE_URL environment variable and redeploy.")
+                return
             time.sleep(delay)
 
 
