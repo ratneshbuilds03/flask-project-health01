@@ -3,6 +3,7 @@ import time
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 from sqlalchemy.exc import OperationalError
 
 from app.config import Config
@@ -35,12 +36,13 @@ def create_app(test_config=None):
 
     db.init_app(app)
     jwt.init_app(app)
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
     register_error_handlers(app)
 
     from app.routes.task_routes import task_bp
     from app.routes.auth_routes import auth_bp
-    app.register_blueprint(task_bp)
-    app.register_blueprint(auth_bp)
+    app.register_blueprint(task_bp, url_prefix='/api')
+    app.register_blueprint(auth_bp, url_prefix='/api')
 
     with app.app_context():
         from app.models.task import Task
